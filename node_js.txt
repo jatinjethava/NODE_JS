@@ -1,0 +1,88 @@
+
+• In a browser v8 angine run java script but node.js in implement v8 in system and then we can run code without browser
+
+=================== Notes ===================
+
+1. In JavaScript, modules are reusable pieces of code that can be imported and exported between different files.
+2. CommonJS is the module system used in Node.js, while ES6 modules are the standard for JavaScript.
+3. In CommonJS, you use require() to import modules and module.exports to export them.
+4. In ES6 modules, you use import and export keywords for module management.
+5. Arrow functions provide a more concise syntax and lexically bind the this value.
+6. Regular functions have their own this context and arguments object, while arrow functions do not.
+7. Arrow functions cannot be used as constructors and will throw an error if you try to use them with the new keyword.
+
+=================== File System Modules ===================
+-- Syntax -- for file
+
+fs.readFile('filename','utf8',(err,data) => {if(err){console.log(err)return;}console.log(data)});
+fs.writeFile('filename','data for writing',(err) => {if (err){console,log(err)return;}console.log(Witten)});
+fs.appendFile('filename','data for append',(err) => {if (err){console,log(err)return;}console.log(appended)});
+fs.rename('old_filename','new_filename',(err) => {if (err){console,log(err)return;}console.log(renamed)});
+fs.unlink('filename',(err) => {if (err){console,log(err)return;}console.log(deleted)});
+fs.stat('filename',(err,status) => {if (err){console,log(err)return;}console.log(status)});
+
+-- Syntax -- for directory
+
+fs.mkdir('dir_name',(err) => {if (err){console,log(err)return;}console.log(successful)});
+fs.rmdir('dir_name',(err) => {if (err){console,log(err)return;}console.log(deleted)});
+fs.readdir('dir_name',(err,file_name) => {if(err){console.log(err)return;}console.log(file_name)});
+
+=================== HTTP Modules ===================
+
+- The http module in Node.js allows you to create an HTTP server that can handle requests and send responses.
+- In this example, we create a simple HTTP server that responds with "Hello World" to every request.
+- You can run this code using Node.js, and then access the server by navigating to http://localhost:3000/ in your web browser.
+- You should see "Hello World" displayed in the browser.
+- You can stop the server by pressing Ctrl + C in the terminal where the server is running.
+- You can customize the response by modifying the code inside the createServer callback function.
+
+-----------------------------------------------------------------------------------------------------------------------------------------------
+const fs = require('fs');
+const path = require('path');
+const server = http.createServer((req, res) => {
+    let filePath = '.' + req.url;
+    if (filePath === './') {
+        filePath = './index.html';
+    }
+    const extname = String(path.extname(filePath)).toLowerCase();
+    const mimeTypes = {
+        '.html': 'text/html',
+        '.js': 'text/javascript',
+        '.css': 'text/css',
+        '.json': 'application/json',
+        '.png': 'image/png',
+        '.jpg': 'image/jpg',
+        '.gif': 'image/gif',
+        '.wav': 'audio/wav',
+        '.mp4': 'video/mp4',
+        '.woff': 'application/font-woff',
+        '.ttf': 'application/font-ttf',
+        '.eot': 'application/vnd.ms-fontobject',
+        '.otf': 'application/font-otf',
+        '.svg': 'application/image/svg+xml'
+    };
+    const contentType = mimeTypes[extname] || 'application/octet-stream';
+    fs.readFile(filePath, (error, content) => {
+        if (error) {
+            if (error.code === 'ENOENT') {
+                res.statusCode = 404;
+                res.end('404 Not Found\n');
+            } else {
+                res.statusCode = 500;
+                res.end('Internal Server Error\n');
+            }
+        } else {
+            res.statusCode = 200;
+            res.setHeader('Content-Type', contentType);
+            res.end(content, 'utf-8');
+        }
+    });
+});
+server.listen(port, hostname, () => {
+    console.log(`Server running at http://${hostname}:${port}/`);
+});
+
+
+// The above examples demonstrate various functionalities of the HTTP module in Node.js, including creating a simple server, handling different routes, serving JSON responses, processing POST requests, managing query parameters, and serving static files.
+-----------------------------------------------------------------------------------------------------------------------------------------------
+
