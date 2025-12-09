@@ -4,6 +4,7 @@ const port = 8100;
 
 app.get('', (req, res) => {
     res.send('Hello World!');
+    console.log('the data sent by server is :', req.query);
 });
 
 app.get('/about', (req, res) => {
