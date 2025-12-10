@@ -13,6 +13,17 @@ app.get('/about', (req, res) => {
     res.sendFile(`${publicPath}/about.html`);
 });
 
+app.set('view engine', 'ejs');
+
+app.get('/profile', (req, res) => {
+    const user = {
+        name: 'Jatin Jethava',
+        age: 30,
+        email: 'jatin@gmail.com'
+    };
+    res.render('profile', { user });
+});
+
 app.use((req, res) => {
     res.status(404).sendFile(path.join(publicPath, '404.html'));
 });
