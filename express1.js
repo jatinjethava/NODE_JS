@@ -14,12 +14,14 @@ app.get('/about', (req, res) => {
 });
 
 app.set('view engine', 'ejs');
+//this line is optional if your views folder name is 'views'
 
 app.get('/profile', (req, res) => {
     const user = {
         name: 'Jatin Jethava',
         age: 30,
-        email: 'jatin@gmail.com'
+        email: 'jatin@gmail.com',
+        skills: ['JavaScript', 'Node.js', 'Express', 'EJS']
     };
     res.render('profile', { user });
 });
