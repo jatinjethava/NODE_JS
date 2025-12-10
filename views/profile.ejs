@@ -23,16 +23,27 @@
 </style>
 
 <body>
-    <h1>profile page</h1>
-    <h2>
-        <%= user.name %>
-    </h2>
-    <h2>
-        <%= user.age %>
-    </h2>
-    <h2>
-        <%= user.email %>
-    </h2>
+
+    <%- include('common/header'); %>
+
+        <h1>profile page</h1>
+        <h2>
+            <%= user.name %>
+        </h2>
+        <h2>
+            <%= user.age %>
+        </h2>
+        <h2>
+            <%= user.email %>
+        </h2>
+
+        <ul>
+            <% user.skills.forEach((item)=> { %>
+                <li>
+                    <%= item %>
+                </li>
+                <% }); %>
+        </ul>
 </body>
 
 </html>
