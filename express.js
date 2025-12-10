@@ -3,7 +3,7 @@ const app = express();
 const port = 8100;
 
 app.get('', (req, res) => {
-    res.send(`<h1>Hello , ' + req.query.name + ' welcome to my first express app </h1>
+    res.send(`<h1>Hello , ' ${req.query.name} ' welcome to my first express app </h1>
         <a href="/about">about</a><br>
         <a href="/contact">contact</a><br>
         <a href="/service">service</a>
