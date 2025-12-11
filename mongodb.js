@@ -3,8 +3,8 @@ const db_connection = require('./database_connection');
 
 // 1. Example usage of the db_connection function to fetch and log all users
 // const get_users = async () => {
-//     let collection = await db_connection();
-//     let data = await collection.find().toArray();
+//     let db = await db_connection();
+//     let data = await db.find().toArray();
 //     console.log(data);
 // }
 
@@ -27,12 +27,12 @@ const db_connection = require('./database_connection');
 //         mobile_no: 7048798733,
 //         email: "yashdip@gmail.com"
 //     },
-//     {
-//         name: "kalpesh jethava",
-//         course: "B.COM",
-//         mobile_no: 9638211368,
-//         email: "kalpesh@gmail.com"
-//     }
+    // {
+    //     name: "kalpesh jethava",
+    //     course: "B.COM",
+    //     mobile_no: 9638211368,
+    //     email: "kalpesh@gmail.com"
+    // }
 // ]);
 
 
