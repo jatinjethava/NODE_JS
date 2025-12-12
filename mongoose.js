@@ -23,9 +23,9 @@ connectDB();
 
 
 const save_data = async () => {
-    const userModel = mongoose.model('users', schema);
+    const User = mongoose.model('users', schema);
     // Example operation: create and save a new user
-    const data = new userModel({
+    const data = new User({
         name: 'jatin jethava',
         course: 'MERN Stack',
         mobile_no: 1234567890,
@@ -38,16 +38,16 @@ const save_data = async () => {
 
 
 const get_data = async () => {
-    const userModel = mongoose.model('users', schema);
-    const result = await userModel.find();
+    const User = mongoose.model('users', schema);
+    const result = await User.find();
     console.log(result);
 }
 // get_data();
 
 
 const update_data = async (id) => {
-    const userModel = mongoose.model('users', schema);
-    const result = await userModel.updateOne({ _id: id }, {
+    const User = mongoose.model('users', schema);
+    const result = await User.updateOne({ _id: id }, {
         $set: { mobile_no: 8160082638 }
     });
     console.log('Data updated successfully');
@@ -56,8 +56,8 @@ const update_data = async (id) => {
 
 
 const delete_data = async (id) => {
-    const userModel = mongoose.model('users', schema);
-    const result = await userModel.deleteOne({ _id: id });
+    const User = mongoose.model('users', schema);
+    const result = await User.deleteOne({ _id: id });
     console.log('Data deleted successfully');
 }
 // delete_data('693c25b509bfd4cfaf436b2e');
