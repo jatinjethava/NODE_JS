@@ -1,5 +1,6 @@
 const express = require('express');
 const db_connection = require('./database_connection');
+const { ObjectId } = require('mongodb');
 const app = express();
 const port = 8100;
 app.use(express.json());
@@ -18,10 +19,16 @@ app.post('/', async (req, res) => {
     res.send(req.body);
 });
 
-app.put('/', async (req, res) => {
+app.put('/:id', async (req, res) => {
     let db = await db_connection();
-    let result = await db.updateOne(req.body);
+    let result = await db.updateOne({ _id: new ObjectId(req.params.id) }, { $set: req.body });
     res.send(req.body);
+});
+
+app.delete('/:id', async (req, res) => {
+    let db = await db_connection();
+    let result = await db.deleteOne({ _id: new ObjectId(req.params.id) });
+    res.send(`Number of documents deleted: ${result.deletedCount}`);
 });
 
 app.listen(port, () => {
