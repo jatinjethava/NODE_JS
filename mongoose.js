@@ -13,7 +13,9 @@ const connectDB = async () => {
         const userModel = mongoose.model('users', schema);
 
         // Example operation: create and save a new user
-        let data = new userModel({ name: 'jethava' });
+        let data = new userModel({
+            name: 'jethava'
+        });
         let result = await data.save();
         console.log(result);
     } catch (err) {
