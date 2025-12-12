@@ -5,7 +5,9 @@ const connectDB = async () => {
     try {
         await mongoose.connect('mongodb://localhost:27017/NODE_JS');
         // Define a schema and model
-        const schema = new mongoose.Schema({ name: String });
+        const schema = new mongoose.Schema({
+            name: String
+        });
         console.log('MongoDB connected successfully');
 
         const userModel = mongoose.model('users', schema);
