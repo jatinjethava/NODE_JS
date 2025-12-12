@@ -28,7 +28,7 @@ const save_data = async () => {
     const data = new userModel({
         name: 'jatin jethava',
         course: 'MERN Stack',
-        mobile_no: 8160082638,
+        mobile_no: 1234567890,
         email: 'jatin@gmail.com'
     });
     const result = await data.save();
@@ -48,11 +48,11 @@ const get_data = async () => {
 const update_data = async (id) => {
     const userModel = mongoose.model('users', schema);
     const result = await userModel.updateOne({ _id: id }, {
-        $set: { name: 'jatin jethava' }
+        $set: { mobile_no: 8160082638 }
     });
     console.log('Data updated successfully');
 }
-// update_data('693c2215e573701fc28c9f5c');
+// update_data('693c25b509bfd4cfaf436b2e');
 
 
 const delete_data = async (id) => {
@@ -60,7 +60,7 @@ const delete_data = async (id) => {
     const result = await userModel.deleteOne({ _id: id });
     console.log('Data deleted successfully');
 }
-// delete_data('693c2215e573701fc28c9f5c');
+// delete_data('693c25b509bfd4cfaf436b2e');
 
 
 module.exports = connectDB;
