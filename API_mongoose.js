@@ -18,12 +18,12 @@ app.post('/create', async (req, res) => {
     res.send('data saved successfully');
 });
 
-app.put('/:id', async (req, res) => {
+app.put('/update_data/:id', async (req, res) => {
     const result = await User.updateOne({ _id: req.params.id }, { $set: req.body });
     res.send('data updated successfully');
 });
 
-app.delete('/:id', async (req, res) => {
+app.delete('/delete_date/:id', async (req, res) => {
     const result = await User.deleteOne({ _id: req.params.id });
     res.send(`Number of documents deleted: ${result.deletedCount}`);
 });
