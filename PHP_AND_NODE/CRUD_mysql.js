@@ -33,13 +33,25 @@ app.get('/users', (req, res) => {
 app.put('/update/:id', (req, res) => {
     const id = req.params.id;
     const data = req.body;
-    const sql = 'UPDATE users SET ? WHERE id = ?';
-    con.query(sql, [data, id], (err, result) => {
-        if (err) {
-            res.status(500).send('Error updating data');
+    const updateSql = 'UPDATE users SET ? WHERE id = ?';
+    con.query(updateSql, [data, id], (err, result) => {
+        if (result.affectedRows === 0) {
+            const insertSql = 'INSERT INTO users SET ?';
+            con.query(insertSql, data, (err, result) => {
+                if (err) {
+                    res.status(500).send('Error inserting data');
+                } else {
+                    res.send('Data inserted successfully');
+                }
+            });
         } else {
-            res.send('Data updated successfully');
+            if (err) {
+                res.status(500).send('Error updating data');
+            } else {
+                res.send('Data updated successfully');
+            }
         }
+
     });
 });
 
