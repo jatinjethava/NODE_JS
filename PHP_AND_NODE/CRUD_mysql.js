@@ -1,10 +1,10 @@
 const express = require('express');
-const con = require('./config_mysql');
+const con = require('./config_mqsql');
 const app = express();
 const port = 8100;
 app.use(express.json());
 
-// Create
+
 app.post('/insert', (req, res) => {
     const data = req.body;
     const sql = 'INSERT INTO users SET ?';
@@ -17,7 +17,7 @@ app.post('/insert', (req, res) => {
     });
 });
 
-// Read
+
 app.get('/users', (req, res) => {
     const sql = 'SELECT * FROM users';
     con.query(sql, (err, results) => {
@@ -29,7 +29,7 @@ app.get('/users', (req, res) => {
     });
 });
 
-// Update
+
 app.put('/update/:id', (req, res) => {
     const id = req.params.id;
     const data = req.body;
@@ -43,7 +43,7 @@ app.put('/update/:id', (req, res) => {
     });
 });
 
-// Delete
+
 app.delete('/delete/:id', (req, res) => {
     const id = req.params.id;
     const sql = 'DELETE FROM users WHERE id = ?';
