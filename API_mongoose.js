@@ -28,6 +28,20 @@ app.delete('/delete_date/:id', async (req, res) => {
     res.send(`Number of documents deleted: ${result.deletedCount}`);
 });
 
+// for searching data
+app.get('/search/:key', async (req, res) => {
+    const key = req.params.key;
+    console.log(key);
+    let result = await User.find({
+        "$or": [
+            { name: { $regex: key, $options: 'i' } },
+            { course: { $regex: key, $options: 'i' } },
+            { email: { $regex: key, $options: 'i' } }
+        ]
+    });
+    res.send(result);
+});
+
 app.listen(port, () => {
     console.log(`Example app listening at http://localhost:${port}`);
 });
