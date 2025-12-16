@@ -93,7 +93,6 @@
 // Regular functions have their own arguments object, while arrow functions do not.
 // Rest parameters can be used in arrow functions to access arguments.
 // Regular functions can be used as constructors with the new keyword, while arrow functions cannot.
-// Regular functions can be used as constructors with the new keyword, while arrow functions cannot.
 // Arrow functions cannot be used as constructors and will throw an error if you try to use them with the new keyword.
 // Arrow functions provide a more concise syntax for writing functions.==================================================================================
 
