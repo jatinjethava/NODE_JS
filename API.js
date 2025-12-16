@@ -16,13 +16,13 @@ app.get('/', async (req, res) => {
 app.post('/', async (req, res) => {
     let db = await db_connection();
     let result = await db.insertOne(req.body);
-    res.send(req.body);
+    res.send(result);
 });
 
 app.put('/:id', async (req, res) => {
     let db = await db_connection();
     let result = await db.updateOne({ _id: new ObjectId(req.params.id) }, { $set: req.body });
-    res.send(req.body);
+    res.send(result);
 });
 
 app.delete('/:id', async (req, res) => {
