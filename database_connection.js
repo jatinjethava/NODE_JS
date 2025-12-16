@@ -8,8 +8,6 @@ async function db_connection() {
     let db = result.db(dbName);
     let collection = db.collection('users');
     return collection;
-    // let data = await collection.find({}).toArray();
-    // console.log(data);
 }
 
 module.exports = db_connection;
