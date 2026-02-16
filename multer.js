@@ -3,7 +3,9 @@ const multer = require('multer');
 const path = require('path');
 const app = express();
 const port = 8100;
+
 app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
 
 // Set storage engine
 // const storage = multer.diskStorage({
