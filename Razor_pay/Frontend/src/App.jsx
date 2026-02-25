@@ -1,12 +1,18 @@
+import React from 'react'
+import { BrowserRouter, Route, Routes } from "react-router-dom";
 import './App.css'
+import { Payment } from "./pages/Payment";
 
 function App() {
 
   return (
     <>
-      <div>My App is running</div>
+      <Routes>
+        <Route path="/" element={<Payment />}>
+        </Route>
+      </Routes>
     </>
-  )
+  );
 }
 
 export default App
