@@ -1,17 +1,20 @@
 const http = require('http');
+const fs = require("fs");
+const url = require("url");
+const { console } = require('inspector');
 
 // == Simple HTTP Server Example ==
-// const hostname = 'localhost';
-// const port = 8100;
+const hostname = 'localhost';
+const port = 8100;
 
-// const server = http.createServer((req, res) => {
-//     res.statusCode = 200;
-//     res.setHeader('Content-Type', 'text/plain');
-//     res.end('Hello World\n');
-// });
-// server.listen(port, hostname, () => {
-//     console.log(`Server running at http://${hostname}:${port}/`);
-// });
+const server = http.createServer((req, res) => {
+    res.statusCode = 200;
+    res.setHeader('Content-Type', 'text/plain');
+    res.end('Hello World\n');
+});
+server.listen(port, hostname, () => {
+    console.log(`Server running at http://${hostname}:${port}/`);
+});
 
 // == Handling Different Routes ==
 
@@ -159,13 +162,34 @@ const http = require('http');
 
 // The above examples demonstrate various functionalities of the HTTP module in Node.js, including creating a simple server, handling different routes, serving JSON responses, processing POST requests, managing query parameters, and serving static files.
 
-function data(req, res) {
-    res.write("<h1>Hello , World!</h1>");
-    res.end();
-}
-http.createServer(data).listen(8100);
-
-// http.createServer((req, res) => {
-//     res.write("<h1>Hello World</h1>");
+// function data(req, res) {
+//     res.write("<h1>Hello , World!</h1>");
 //     res.end();
-// }).listen(8100);
+// }
+// http.createServer(data).listen(8100);
+
+http.createServer((req, res) => {
+
+    const log = `${Date.now()} : || ${req.url} || new req receive\n`;
+    const my_url = url.parse(req.url, true);
+
+    if (req.url === "/favicon.ico") return res.end();
+    if (req.url === "/.well-known/appspecific/com.chrome.devtools.json") return res.end();
+
+    fs.appendFile("./log.txt", log, (error, data) => {
+        switch (my_url.pathname) {
+            case "/":
+                res.end(`hi , ${my_url.query.name}`);
+                break;
+            case "/about":
+                res.end("this is About page");
+                break;
+            case "/contact":
+                res.end("this is Contact page");
+                break;
+            default:
+                res.end("404 Page Not Found");
+                break;
+        }
+    })
+}).listen(8100);
