@@ -1,17 +1,20 @@
 const { ApolloServer } = require('apollo-server-express');
 const schema = require('./Graphql/Schema');
-const AuthMiddleware = require("./Middleware/auth");
 
-async function startServer(app) {
+async function createApollo(app) {
+
     const server = new ApolloServer({
         schema,
-        context: ({ req }) => {
-            const user = AuthMiddleware(req);
-            return { user };
-        }
     });
+
     await server.start();
     server.applyMiddleware({ app, path: "/graphql" });
+
+    return server;
 }
 
-module.exports = startServer;
+async function startServer(app) {
+    return app;
+}
+
+module.exports = { createApollo, startServer };

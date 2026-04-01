@@ -4,10 +4,12 @@ const jwt = require('jsonwebtoken');
 
 const userResolver = {
     Query: {
-        users: async () => {
+        users: async (_, __, { user }) => {
+            if (!user) throw new Error("Unauthorized");
             return await USER.find().select('-password').sort({ createdAt: -1 });
         },
-        getUser: async (_, { id }) => {
+        getUser: async (_, { id }, { user }) => {
+            if (!user) throw new Error("Unauthorized");
             return await USER.findById(id).select('-password');
         }
     },
