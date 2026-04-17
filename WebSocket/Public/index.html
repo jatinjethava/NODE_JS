@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chatting App</title>
+    <style>
+        body {
+            font-family: Arial;
+            margin: 20px;
+        }
+
+        #messages {
+            border: 1px solid #ccc;
+            height: 300px;
+            overflow-y: auto;
+            padding: 10px;
+            margin-bottom: 10px;
+        }
+
+        .message {
+            margin: 5px 0;
+            padding: 5px;
+            background: #f0f0f0;
+            border-radius: 5px;
+        }
+
+        input {
+            padding: 8px;
+            width: 70%;
+        }
+
+        button {
+            padding: 8px 15px;
+        }
+    </style>
+</head>
+
+<body>
+    <h1>Chat App</h1>
+    <div id="messages"></div>
+    <form id="chatForm">
+        <input type="text" id="inputMessage" placeholder="Enter message..." required>
+        <button type="submit" id="sendMessage">Send</button>
+        <button type="submit" id="disconnect">Disconnected</button>
+    </form>
+
+    <script src="/socket.io/socket.io.js"></script>
+    <script>
+        const socket = io();
+        const form = document.getElementById('chatForm');
+        const input = document.getElementById('inputMessage');
+        const messagesDiv = document.getElementById('messages');
+        const disconnect = document.getElementById('disconnect');
+
+        form.addEventListener('submit', (e) => {
+            e.preventDefault();
+            if (input.value) {
+                // Emit the message to the server   
+                socket.emit('chat message', input.value.trim());
+                input.value = '';
+            }
+        });
+
+        socket.on('chat message', (msg) => {
+            const messageEl = document.createElement('div');
+            messageEl.className = 'message';
+            messageEl.textContent = msg;
+            messagesDiv.appendChild(messageEl);
+            messagesDiv.scrollTop = messagesDiv.scrollHeight;
+        });
+
+        disconnect.addEventListener('click', (e) => {
+            e.preventDefault();
+            if (socket.connected) {
+                if (confirm('Are you sure you want to disconnect?')) {
+                    socket.disconnect();
+                    disconnect.innerHTML = 'Connect';
+                    alert('You have been disconnected from the chat.');
+                }
+            } else {
+                if (confirm('Do you want to connect to the chat?')) {
+                    socket.connect();
+                    disconnect.innerHTML = 'Disconnected';
+                    alert('You have been connected to the chat.');
+                }
+            }
+        });
+    </script>
+</body>
+
+</html>
